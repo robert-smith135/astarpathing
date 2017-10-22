@@ -21,23 +21,24 @@ export default class Grid  {
         this.openSet.push(this.start);
     }
 
-    private calculateStartAndEnd() {
-        this.start = this.grid[0][0];
-        this.end = this.grid[this.columns-1][this.rows-1];
-    }
-
     private buildGrid(): void {
-        for (let i = 0; i < this.columns; i++) {
+        this.grid = new Array();
+        for (var i = 0; i < this.columns; i++) {
             this.grid[i] = new Array(this.rows);
         }
     }
 
     private buildCells(): any {
-        this.grid.forEach((column: any) => {
-            column.forEach((row: any) => {
-                this.grid[column][row] = new Cell(column, row, this.columns, this.rows, this.columns);
+        this.grid.forEach((column: any, columnIndex: number) => {
+            column.forEach((row: any, rowIndex: number) => {
+                this.grid[column][row] = new Cell(columnIndex, rowIndex, this.columns, this.rows, this.columns);
             })
         })
+    }
+
+    private calculateStartAndEnd() {
+        this.start = this.grid[0][0];
+        this.end = this.grid[this.columns-1][this.rows-1];
     }
 
     public noSolution(): void {
@@ -46,6 +47,22 @@ export default class Grid  {
         } else {
             this.noSolutionFlag = true;
         }
+    }
+
+    public showOpenSet(): void {
+        this.openSet.forEach((column: any) => {
+            column.forEach((row: any) => {
+                this.grid[column][row].show(color(66, 83, 244));
+            })
+        })
+    }
+
+    public showClosedSet(): void {
+        this.closedSet.forEach((column: any) => {
+            column.forEach((row: any) => {
+                this.grid[column][row].show(color(244, 66, 66));
+            })
+        })
     }
 
 }

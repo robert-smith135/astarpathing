@@ -16,8 +16,8 @@ export default class Cell {
         this.height = height / cols;
     }
 
-    public show(): void {
-        fill(255)
+    public show (color: any): void {
+        fill(color)
         stroke(0)
         rect(this.x*this.width, this.y*this.height, this.width, this.height)
     }
